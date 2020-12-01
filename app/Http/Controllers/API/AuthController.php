@@ -22,7 +22,6 @@ class AuthController extends Controller
 
 		$accessToken = $user->createToken('authToken');
 
-
 		return response(['user' => $user, 'access_token' => $accessToken->plainTextToken]);
 	}
 
@@ -38,8 +37,12 @@ class AuthController extends Controller
 			return response(['message' => 'Invalid Credentials']);
 		}
 
-		$accessToken = auth()->user()->createToken('authToken')->accessToken;
+		$accessToken = auth()->user()->createToken('authToken')->plainTextToken;
 
 		return response(['user' => auth()->user(), 'access_token' => $accessToken]);
+	}
+	public function me(Request $request)
+	{
+		return response(['user' => auth()->user()]);
 	}
 }
